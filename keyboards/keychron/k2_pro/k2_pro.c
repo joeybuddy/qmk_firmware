@@ -104,6 +104,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 siri_timer_buffer = sync_timer_read32() | 1;
             }
             return false; // Skip all further processing of this key
+        case KC_ESC_CTRL:
+            // Act as LCTL when held, ESC when tapped
+            if (record->tap.count > 0) {
+                if (record->event.pressed) {
+                    tap_code(KC_ESC);
+                }
+            } else {
+                if (record->event.pressed) {
+                    register_code(KC_LCTL);
+                } else {
+                    unregister_code(KC_LCTL);
+                }
+            }
+            return false;
 #ifdef KC_BLUETOOTH_ENABLE
         case BT_HST1 ... BT_HST3:
             if (get_transport() == TRANSPORT_BLUETOOTH) {

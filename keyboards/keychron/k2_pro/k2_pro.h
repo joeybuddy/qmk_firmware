@@ -51,5 +51,6 @@ enum {
     BT_HST3 = KC_TRNS,
     BAT_LVL = KC_TRNS,
 #endif
+    KC_ESC_CTRL,  // LCTL_T(KC_ESC) - Control when held, Escape when tapped
 	NEW_SAFE_RANGE
 };
