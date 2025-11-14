@@ -106,6 +106,14 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
                 siri_timer_buffer = sync_timer_read32() == 0 ? 1 : sync_timer_read32();
             }
             return false; // Skip all further processing of this key
+        case KC_ESC_CTRL:
+            // Use QMK's native mod-tap functionality
+            if (record->event.pressed) {
+                register_code16(LCTL_T(KC_ESC));
+            } else {
+                unregister_code16(LCTL_T(KC_ESC));
+            }
+            return false;
 #ifdef KC_BLUETOOTH_ENABLE
         case BT_HST1 ... BT_HST3:
             if (get_transport() == TRANSPORT_BLUETOOTH) {

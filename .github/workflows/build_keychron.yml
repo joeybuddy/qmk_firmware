@@ -1,0 +1,58 @@
+name: Build Keychron Keyboards
+
+on:
+  push:
+    paths:
+      - 'keyboards/keychron/k2_pro/**'
+      - 'keyboards/keychron/k3_pro/**'
+      - 'keyboards/keychron/q8_pro/**'
+  pull_request:
+    paths:
+      - 'keyboards/keychron/k2_pro/**'
+      - 'keyboards/keychron/k3_pro/**'
+      - 'keyboards/keychron/q8_pro/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build ${{ matrix.keyboard }}
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        keyboard:
+          - keychron/k2_pro/ansi/rgb
+          - keychron/k3_pro/ansi/rgb
+          - keychron/q8_pro/ansi_encoder
+        keymap:
+          - default
+          - via
+    
+    container: qmkfm/qmk_cli
+    
+    steps:
+      - name: Disable safe.directory check
+        run: git config --global --add safe.directory '*'
+      
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      
+      - name: Install dependencies
+        run: pip3 install -r requirements.txt
+      
+      - name: Build firmware
+        run: qmk compile -kb ${{ matrix.keyboard }} -km ${{ matrix.keymap }}
+      
+      - name: Upload firmware artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ${{ matrix.keyboard }}-${{ matrix.keymap }}
+          if-no-files-found: ignore
+          path: |
+            *.bin
+            *.hex
+            *.uf2

@@ -16,7 +16,8 @@
     {"name": "Bluetooth Host 1", "title": "Bluetooth Host 1", "shortName": "BTH1"},
     {"name": "Bluetooth Host 2", "title": "Bluetooth Host 2", "shortName": "BTH2"},
     {"name": "Bluetooth Host 3", "title": "Bluetooth Host 3", "shortName": "BTH3"},
-    {"name": "Battery Level", "title": "Show battery level", "shortName": "Batt"}
+    {"name": "Battery Level", "title": "Show battery level", "shortName": "Batt"},
+    {"name": "LCTL_T(KC_ESC)", "title": "Escape when tapped, Control when held", "shortName": "LCTL_T(KC_ESC)"}
   ],
   "matrix": {"rows": 6, "cols": 16},
   "layouts": {
