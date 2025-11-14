@@ -22,23 +22,9 @@ jobs:
       fail-fast: false
       matrix:
         keyboard:
-          # K2 Pro variants
           - keychron/k2_pro/ansi/rgb
-          - keychron/k2_pro/ansi/white
-          - keychron/k2_pro/iso/rgb
-          - keychron/k2_pro/iso/white
-          - keychron/k2_pro/jis/rgb
-          - keychron/k2_pro/jis/white
-          # K3 Pro variants
           - keychron/k3_pro/ansi/rgb
-          - keychron/k3_pro/ansi/white
-          - keychron/k3_pro/iso/rgb
-          - keychron/k3_pro/iso/white
-          - keychron/k3_pro/jis/rgb
-          - keychron/k3_pro/jis/white
-          # Q8 Pro variants
           - keychron/q8_pro/ansi_encoder
-          - keychron/q8_pro/iso_encoder
         keymap:
           - default
           - via

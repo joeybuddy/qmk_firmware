@@ -105,17 +105,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
             }
             return false; // Skip all further processing of this key
         case KC_ESC_CTRL:
-            // Act as LCTL when held, ESC when tapped
-            if (record->tap.count > 0) {
-                if (record->event.pressed) {
-                    tap_code(KC_ESC);
-                }
+            // Use QMK's native mod-tap functionality
+            if (record->event.pressed) {
+                register_code16(LCTL_T(KC_ESC));
             } else {
-                if (record->event.pressed) {
-                    register_code(KC_LCTL);
-                } else {
-                    unregister_code(KC_LCTL);
-                }
+                unregister_code16(LCTL_T(KC_ESC));
             }
             return false;
 #ifdef KC_BLUETOOTH_ENABLE
