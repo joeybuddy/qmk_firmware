@@ -1,4 +1,4 @@
-name: Build Keychron Keyboards
+name: Build Keychron Firmware
 
 on:
   push:
@@ -15,16 +15,30 @@ on:
 
 jobs:
   build:
-    name: Build ${{ matrix.keyboard }}
+    name: Build ${{ matrix.keyboard }} - ${{ matrix.keymap }}
     runs-on: ubuntu-latest
     
     strategy:
       fail-fast: false
       matrix:
         keyboard:
+          # K2 Pro variants
           - keychron/k2_pro/ansi/rgb
+          - keychron/k2_pro/ansi/white
+          - keychron/k2_pro/iso/rgb
+          - keychron/k2_pro/iso/white
+          - keychron/k2_pro/jis/rgb
+          - keychron/k2_pro/jis/white
+          # K3 Pro variants
           - keychron/k3_pro/ansi/rgb
+          - keychron/k3_pro/ansi/white
+          - keychron/k3_pro/iso/rgb
+          - keychron/k3_pro/iso/white
+          - keychron/k3_pro/jis/rgb
+          - keychron/k3_pro/jis/white
+          # Q8 Pro variants
           - keychron/q8_pro/ansi_encoder
+          - keychron/q8_pro/iso_encoder
         keymap:
           - default
           - via
@@ -50,7 +64,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ${{ matrix.keyboard }}-${{ matrix.keymap }}
+          name: firmware-${{ matrix.keyboard }}-${{ matrix.keymap }}
           if-no-files-found: ignore
           path: |
             *.bin
