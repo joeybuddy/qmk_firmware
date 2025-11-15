@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: ${{ matrix.keyboard }}-${{ matrix.keymap }}
+          name: ${{ replace(matrix.keyboard, '/', '_') }}-${{ matrix.keymap }}
           if-no-files-found: ignore
           path: |
             *.bin
