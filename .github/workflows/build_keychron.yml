@@ -6,11 +6,13 @@ on:
       - 'keyboards/keychron/k2_pro/**'
       - 'keyboards/keychron/k3_pro/**'
       - 'keyboards/keychron/q8_pro/**'
+      - '.github/workflows/build_keychron.yml'
   pull_request:
     paths:
       - 'keyboards/keychron/k2_pro/**'
       - 'keyboards/keychron/k3_pro/**'
       - 'keyboards/keychron/q8_pro/**'
+      - '.github/workflows/build_keychron.yml'
   workflow_dispatch:
 
 jobs:
