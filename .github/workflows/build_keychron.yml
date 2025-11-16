@@ -18,10 +18,13 @@ jobs:
     
     strategy:
       matrix:
-        keyboard:
-          - keychron/k2_pro/ansi/rgb
-          - keychron/k3_pro/ansi/rgb
-          - keychron/q8_pro/ansi_encoder
+        include:
+          - keyboard: keychron/k2_pro/ansi/rgb
+            name: k2_pro_ansi_rgb
+          - keyboard: keychron/k3_pro/ansi/rgb
+            name: k3_pro_ansi_rgb
+          - keyboard: keychron/q8_pro/ansi_encoder
+            name: q8_pro_ansi_encoder
     
     steps:
       - name: Disable safe.directory check
@@ -38,7 +41,7 @@ jobs:
       - name: Upload firmware artifact
         uses: actions/upload-artifact@v4
         with:
-          name: firmware-${{ matrix.keyboard }}
+          name: firmware-${{ matrix.name }}
           path: |
             .build/*.bin
             .build/*.hex
