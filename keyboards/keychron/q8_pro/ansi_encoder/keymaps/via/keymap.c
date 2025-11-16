@@ -25,6 +25,10 @@ enum layers{
   FN2,
 };
 
+enum custom_keycodes {
+  CTL_ESC = QK_KB_13  // Start after existing Keychron custom keycodes
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [MAC_BASE] = LAYOUT_69_ansi(
         KC_ESC,  KC_1,     KC_2,     KC_3,    KC_4,    KC_5,    KC_6,        KC_7,     KC_8,    KC_9,    KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,           KC_MUTE,
@@ -71,3 +75,26 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][2] = {
     [FN2]      = {ENCODER_CCW_CW(_______, _______)},
 };
 #endif // ENCODER_MAP_ENABLE
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_ESC:
+            // Implement LCTL_T(KC_ESC) behavior
+            if (record->tap.count > 0) {
+                // Key was tapped
+                if (record->event.pressed) {
+                    tap_code(KC_ESC);
+                }
+                return false;
+            } else {
+                // Key is being held
+                if (record->event.pressed) {
+                    register_code(KC_LCTL);
+                } else {
+                    unregister_code(KC_LCTL);
+                }
+                return false;
+            }
+    }
+    return true;
+}

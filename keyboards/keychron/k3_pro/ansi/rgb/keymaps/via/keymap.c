@@ -24,6 +24,10 @@ enum layers{
   WIN_FN
 };
 
+enum custom_keycodes {
+  CTL_ESC = QK_KB_13  // Start after existing Keychron custom keycodes
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MAC_BASE] = LAYOUT_ansi_84(
      KC_ESC,   KC_BRID,  KC_BRIU,  KC_MCTL,  KC_LPAD,  UG_VALD,  UG_VALU,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_MUTE,  KC_VOLD,  KC_VOLU,  KC_SNAP,  KC_DEL,   UG_NEXT,
@@ -57,3 +61,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______,            _______,  _______,  _______,  _______,  BAT_LVL,  NK_TOGG,  _______,  _______,  _______,  _______,            _______,  _______,  _______,
      _______,  _______,  _______,                                _______,                                _______,  _______,  _______,  _______,  _______,  _______)
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case CTL_ESC:
+            // Implement LCTL_T(KC_ESC) behavior
+            if (record->tap.count > 0) {
+                // Key was tapped
+                if (record->event.pressed) {
+                    tap_code(KC_ESC);
+                }
+                return false;
+            } else {
+                // Key is being held
+                if (record->event.pressed) {
+                    register_code(KC_LCTL);
+                } else {
+                    unregister_code(KC_LCTL);
+                }
+                return false;
+            }
+    }
+    return true;
+}
