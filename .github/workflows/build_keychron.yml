@@ -42,7 +42,5 @@ jobs:
         with:
           name: firmware-${{ matrix.name }}
           path: |
-            .build/*.bin
-            .build/*.hex
-            .build/*.uf2
+            .build/**
           if-no-files-found: error
